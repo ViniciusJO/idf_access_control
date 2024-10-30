@@ -55,10 +55,10 @@ void verify_pass_task(void *args) {
         printf("%d ", password[i]);
       puts("");
       if (!memcmp(password, true_pass, PASS_COUNT * sizeof(int))) {
-        puts("ACERTO MISERAVI");
+        puts("Senha correta");
         gpio_set_level(2, 1);
       } else {
-        puts("ERROOOOOOU");
+        puts("Senha incorreta");
         gpio_set_level(15, 1);
       }
       count_digit = 0;
