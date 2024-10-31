@@ -9,8 +9,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "colors.h"
-
 #define MIN(a, b) ((a) < (b)) ? (a) : (b)
 
 #define BUT_1 4
@@ -21,7 +19,6 @@
 #define PASS_COUNT 6
 
 QueueHandle_t queue = NULL;
-QueueHandle_t uart_queue = NULL;
 TaskHandle_t verify_handle = NULL;
 
 int true_pass[PASS_COUNT] = {1, 2, 3, 4, 1, 2};
@@ -122,9 +119,8 @@ void uart_receive(void *arg) {
 
 void app_main(void) {
   queue = xQueueCreate(12, sizeof(int));
-  uart_queue = xQueueCreate(12, sizeof(int));
 
-  gpio_config_t input = {
+  const gpio_config_t input = {
     .mode = GPIO_MODE_INPUT,
     .intr_type = GPIO_INTR_DISABLE,
     .pull_up_en = GPIO_PULLUP_ENABLE,
@@ -133,7 +129,7 @@ void app_main(void) {
   };
   gpio_config(&input);
 
-  gpio_config_t output = {
+  const gpio_config_t output = {
     .mode = GPIO_MODE_OUTPUT,
     .intr_type = GPIO_INTR_DISABLE,
     .pull_up_en = GPIO_PULLUP_DISABLE,
@@ -143,7 +139,7 @@ void app_main(void) {
   gpio_config(&output);
 
   const int uart_buffer_size = (1024 * 2);
-  uart_config_t uart_config = {
+  const uart_config_t uart_config = {
     .baud_rate = 115200,
     .data_bits = UART_DATA_8_BITS,
     .parity = UART_PARITY_DISABLE,

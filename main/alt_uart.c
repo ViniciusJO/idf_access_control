@@ -7,6 +7,9 @@
 #include <string.h>
 
 #include "AT.h"
+#include "colors.h"
+
+#define PASS_COUNT 6
 
 int is_valid_pass(char *pass) {
   size_t len = strlen(pass);
